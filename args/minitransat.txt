@@ -1,0 +1,3 @@
+--tracker-url=http://minitransat.geovoile.com/2021/tracker
+--show-class=Proto
+--exclude-dnf

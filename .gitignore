@@ -136,3 +136,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+/tracks.gpx
+/all.gpx
+/wpts.gpx
+/qt_vlm_xml/
+
+./idea/Some
+/.idea/

@@ -1,4 +1,4 @@
-class Position():
+class Position:
     """
     latitude, longitude, timestamp
     """
@@ -27,7 +27,8 @@ class Position():
     def __repr__(self):
         return self.__str__()
 
-class Ship():
+
+class Ship:
     """
     Ship datamodel : id , name as an option
     """
