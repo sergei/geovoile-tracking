@@ -1,7 +1,7 @@
 import glob
 import os
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
@@ -173,9 +173,11 @@ class Merger:
         # Remove all boats that don't finish at this time
         if self.args.exclude_dnf:
             for boat in self.ship_dict.all_ships():
-                if len(boat.positions) > 0 and datetime.utcfromtimestamp(boat.positions[-1].timestamp) < last_utc:
-                    print(f'Excluding {boat.name} as DNF')
-                    boats_to_remove.add(boat)
+                if len(boat.positions) > 0:
+                    time_behind = last_utc - datetime.utcfromtimestamp(boat.positions[-1].timestamp)
+                    if time_behind > timedelta(hours=1):
+                        print(f'Excluding {boat.name} as DNF')
+                        boats_to_remove.add(boat)
 
         for boat in boats_to_remove:
             # if boat.ID in self.ship_dict:
@@ -200,7 +202,7 @@ class Merger:
 
             # Initiate Track
             gpx_track = GPXTrack()
-            gpx_track.name = boat.name
+            gpx_track.name = 'past ' + boat.name
             self.gpx.tracks.append(gpx_track)
             track_color.text = self.gpxx_color[random.randrange(len(self.gpxx_color))]
             if self.args.color_gpx:
